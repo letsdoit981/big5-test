@@ -9,22 +9,30 @@
         .container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
         h1 { color: #2c3e50; text-align: center; margin-bottom: 5px; }
         .instruction { background: #eef2f7; padding: 20px; border-left: 6px solid #3498db; margin-bottom: 30px; border-radius: 4px; }
+        
+        /* Хувийн мэдээллийн хэсэг */
+        .user-info { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 25px; padding: 20px; background: #fff; border: 1px solid #3498db; border-radius: 10px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
+        .info-group { display: flex; flex-direction: column; min-width: 150px; flex: 1; }
+        label { font-weight: bold; margin-bottom: 8px; color: #2c3e50; }
+        input[type="number"], input[type="text"], select { padding: 10px; border-radius: 6px; border: 1px solid #cbd5e0; font-size: 14px; }
+        input:focus, select:focus { outline: none; border-color: #3498db; box-shadow: 0 0 0 2px rgba(52,152,219,0.2); }
+
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th { background: #3498db; color: white; padding: 15px 10px; position: sticky; top: 0; z-index: 10; font-size: 14px; }
         td { border-bottom: 1px solid #edf2f7; padding: 15px 10px; text-align: center; }
         
-        /* Хариулаагүй мөрийг улаанаар тодруулах Style */
         .error-row { background-color: #ffebee !important; border: 2px solid #ef5350; }
-        
         .statement-text { text-align: left; width: 40%; color: #2c3e50; }
         .en-text { display: block; font-size: 12px; color: #7f8c8d; font-style: italic; margin-top: 4px; }
         .mn-text { display: block; font-size: 15px; font-weight: 600; }
+        
         tr:hover { background-color: #fcfdfe; }
         .btn-container { text-align: center; margin-top: 40px; }
-        button { background: #27ae60; color: white; border: none; padding: 18px 50px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 50px; transition: all 0.3s; }
-        button:hover { background: #2ecc71; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(39,174,96,0.3); }
+        button { background: #27ae60; color: white; border: none; padding: 18px 50px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 50px; transition: all 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        button:hover { background: #2ecc71; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(39,174,96,0.2); }
+        
         #results { display: none; margin-top: 30px; padding: 25px; background: #fff3cd; border: 1px solid #ffeeba; border-radius: 10px; }
-        .copy-area { background: #fff; border: 1px solid #ccc; padding: 15px; width: 100%; height: 150px; font-family: monospace; margin-top: 10px; border-radius: 5px; }
+        .copy-area { background: #fff; border: 1px solid #ccc; padding: 15px; width: 100%; height: 200px; font-family: 'Courier New', monospace; margin-top: 10px; border-radius: 5px; resize: none; font-size: 14px; }
     </style>
 </head>
 <body>
@@ -33,14 +41,29 @@
     <h1>Big Five Inventory test-2 (BFI-2)</h1>
     <div class="instruction">
         <strong>Big Five гэж юу вэ?</strong> Big Five нь ШУ-аар батлагдсан, дэлхийд хүлээн зөвшөөрөгдсөн сэтгэл судлалын тест юм.<br>
-        Big Five нь олон арван жилийн турш хэдэн сая хүн дээр хийгдсэн судалгаанд суурилсан байдаг. 
-        <br> Энэхүү тест нь таны ажил мэргэжлийн амжилт, харилцааны онцлог, стресс даах чадвар зэрэг таны сэтгэл хөдлөл, зан араншин, хандлагыг урьдчилан таамаглахад тусалдаг хамгийн хүчирхэг хэрэгсэл юм. <br><br>
+        Big Five нь олон арван жилийн турш хэдэн сая хүн дээр хийгдсэн судалгаанд суурилсан байдаг. <br>
+        Энэхүү тест нь таны ажил мэргэжлийн амжилт, харилцааны онцлог, стресс даах чадвар зэрэг таны сэтгэл хөдлөл, зан араншин, хандлагыг урьдчилан таамаглахад тусалдаг хамгийн хүчирхэг хэрэгсэл юм. <br><br>
+        <strong>Заавар:</strong> Доорх өгүүлбэрүүдийг уншаад өөрт тохирсон хариултыг сонгож гарсан хариуг бидэнд илгээгээрэй ;).
+    </div>
 
-        <strong>Заавар:</strong> Доорх өгүүлбэрүүдийг уншаад өөрт тохирсон хариултыг сонгож гарсан хариуг бидэнд илгээгээрэй ;). <br>
-** Асуултыг уншаад хамгийн түрүүнд төрж байгаа мэдрэмжээрээ хариулах нь хамгийн үнэн зөв байдаг.<br>
-** Нэг асуултад дунджаар 3-5 секунд зарцуулахад хангалттай.<br>
-**"Би ийм байх ёстой" гэж биш, яг одоо "Би ийм хүн" гэдэг бодит байдлаа л сонгоорой.<br>
-        <em>(Please rate how much you agree with each statement.)</em>
+    <div class="user-info">
+        <div class="info-group">
+            <label>Нас (Age):</label>
+            <input type="number" id="userAge" min="1" max="100" placeholder="Жишээ: 25">
+        </div>
+        <div class="info-group">
+            <label>Хүйс (Gender):</label>
+            <select id="userGender">
+                <option value="">Сонгох</option>
+                <option value="Male">Эрэгтэй (Male)</option>
+                <option value="Female">Эмэгтэй (Female)</option>
+                <option value="Other">Бусад (Other)</option>
+            </select>
+        </div>
+        <div class="info-group">
+            <label>Мэргэжил (Occupation):</label>
+            <input type="text" id="userJob" placeholder="Жишээ: Инженер">
+        </div>
     </div>
 
     <table>
@@ -62,13 +85,14 @@
     </div>
 
     <div id="results">
-        <h3>Үр дүн (Copy this for our):</h3>
-        <p>Та доорх кодыг хуулж аваад бидэнрүү илгээнэ үү. Баярлалаа. </p>
+        <h3>Үр дүн (Copy this for us):</h3>
+        <p>Та доорх текстийг бүхэлд нь хуулж аваад бидэн рүү илгээнэ үү. Баярлалаа.</p>
         <textarea id="outputArea" class="copy-area" readonly></textarea>
     </div>
 </div>
 
 <script>
+    // Асуултуудын жагсаалт (60 асуулт)
     const questions = [
         { mn: "Нээлттэй, олон нийттэй харилцах дуртай хүн.", en: "Is outgoing, sociable." },
         { mn: "Өрөвч, зөөлөн сэтгэлтэй хүн.", en: "Is compassionate, has a soft heart." },
@@ -133,7 +157,6 @@
     ];
 
     const quizBody = document.getElementById('quizBody');
-
     questions.forEach((q, i) => {
         let row = `<tr id="row-${i}">
             <td class="statement-text">
@@ -150,7 +173,19 @@
     });
 
     function generateReport() {
-        let results = "BFI-2 Results Data:\n";
+        const age = document.getElementById('userAge').value;
+        const gender = document.getElementById('userGender').value;
+        const job = document.getElementById('userJob').value;
+
+        // Хувийн мэдээллийн шалгалт
+        if(!age || !gender || !job) {
+            alert("Нас, Хүйс, Мэргэжил гэсэн мэдээллийг бүрэн оруулна уу!");
+            return;
+        }
+
+        let results = `PERSONAL INFO:\nAge: ${age}\nGender: ${gender}\nOccupation: ${job}\n\n`;
+        results += `BFI-2 RESULTS DATA:\n`;
+        
         let allAnswered = true;
         let firstMissingRow = null;
 
@@ -166,15 +201,13 @@
                 if((i+1) % 10 === 0) results += "\n";
             } else {
                 allAnswered = false;
-                // Дутуу асуултын мөрийг улаанаар тодруулах
                 document.getElementById(`row-${i}`).classList.add('error-row');
                 if (firstMissingRow === null) firstMissingRow = document.getElementById(`row-${i}`);
             }
         }
 
         if(!allAnswered) {
-            alert("Та бүх асуултад хариулна уу! / Please answer all questions.");
-            // Хамгийн эхний дутуу асуулт руу дэлгэцийг гүйлгэх
+            alert("Та бүх асуултад хариулна уу! Дутуу асуултуудыг улаанаар тодрууллаа.");
             firstMissingRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
             return;
         }

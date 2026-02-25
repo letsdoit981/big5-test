@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Five Personality Test (BFI-2)</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; max-width: 1000px; margin: 0 auto; padding: 20px; background-color: #f4f7f9; color: #333; }
+        .container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 5px; }
+        .instruction { background: #eef2f7; padding: 20px; border-left: 6px solid #3498db; margin-bottom: 30px; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { background: #3498db; color: white; padding: 15px 10px; position: sticky; top: 0; z-index: 10; font-size: 14px; }
+        td { border-bottom: 1px solid #edf2f7; padding: 15px 10px; text-align: center; }
+        
+        /* Хариулаагүй мөрийг улаанаар тодруулах Style */
+        .error-row { background-color: #ffebee !important; border: 2px solid #ef5350; }
+        
+        .statement-text { text-align: left; width: 40%; color: #2c3e50; }
+        .en-text { display: block; font-size: 12px; color: #7f8c8d; font-style: italic; margin-top: 4px; }
+        .mn-text { display: block; font-size: 15px; font-weight: 600; }
+        tr:hover { background-color: #fcfdfe; }
+        .btn-container { text-align: center; margin-top: 40px; }
+        button { background: #27ae60; color: white; border: none; padding: 18px 50px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 50px; transition: all 0.3s; }
+        button:hover { background: #2ecc71; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(39,174,96,0.3); }
+        #results { display: none; margin-top: 30px; padding: 25px; background: #fff3cd; border: 1px solid #ffeeba; border-radius: 10px; }
+        .copy-area { background: #fff; border: 1px solid #ccc; padding: 15px; width: 100%; height: 150px; font-family: monospace; margin-top: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Big Five Inventory test-2 (BFI-2)</h1>
+    <div class="instruction">
+        <strong>Big Five гэж юу вэ?</strong> Big Five нь ШУ-аар батлагдсан, дэлхийд хүлээн зөвшөөрөгдсөн сэтгэл судлалын тест юм.<br>
+        Big Five нь олон арван жилийн турш хэдэн сая хүн дээр хийгдсэн судалгаанд суурилсан байдаг. 
+        <br> Энэхүү тест нь таны ажил мэргэжлийн амжилт, харилцааны онцлог, стресс даах чадвар зэрэг таны сэтгэл хөдлөл, зан араншин, хандлагыг урьдчилан таамаглахад тусалдаг хамгийн хүчирхэг хэрэгсэл юм. <br><br>
+
+        <strong>Заавар:</strong> Доорх өгүүлбэрүүдийг уншаад өөрт тохирсон хариултыг сонгож гарсан хариуг бидэнд илгээгээрэй ;). <br>
+        <em>(Please rate how much you agree with each statement.)</em>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Statement (Би бол...)</th>
+                <th>Огт зөвшөөрөхгүй<br><small>(Strongly Disagree)</small></th>
+                <th>Бага зэрэг зөвшөөрөхгүй<br><small>(Disagree a little)</small></th>
+                <th>Төвийг сахисан<br><small>(Neutral)</small></th>
+                <th>Бага зэрэг зөвшөөрч байна<br><small>(Agree a little)</small></th>
+                <th>Бүрэн зөвшөөрч байна<br><small>(Strongly Agree)</small></th>
+            </tr>
+        </thead>
+        <tbody id="quizBody"></tbody>
+    </table>
+
+    <div class="btn-container">
+        <button onclick="generateReport()">Үр дүнг харах / Show Results</button>
+    </div>
+
+    <div id="results">
+        <h3>Үр дүн (Copy this for our):</h3>
+        <p>Та доорх кодыг хуулж аваад бидэнрүү илгээнэ үү. Баярлалаа. </p>
+        <textarea id="outputArea" class="copy-area" readonly></textarea>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { mn: "Нээлттэй, олон нийттэй харилцах дуртай хүн.", en: "Is outgoing, sociable." },
+        { mn: "Өрөвч, зөөлөн сэтгэлтэй хүн.", en: "Is compassionate, has a soft heart." },
+        { mn: "Замбараагүй байх хандлагатай хүн.", en: "Tends to be disorganized." },
+        { mn: "Тайван, стрессийг сайн даадаг хүн.", en: "Is relaxed, handles stress well." },
+        { mn: "Урлагт төдийлөн сонирхолгүй хүн.", en: "Has few artistic interests." },
+        { mn: "Өөрийнхөө бодолд итгэлтэй, шийдэмгий зан чанартай хүн.", en: "Has an assertive personality." },
+        { mn: "Бусдад хүндэтгэлтэй ханддаг хүн.", en: "Is respectful, treats others with respect." },
+        { mn: "Залхуурах хандлагатай хүн.", en: "Tends to be lazy." },
+        { mn: "Саад бэрхшээл тулгарсан ч өөдрөг хэвээр үлддэг хүн.", en: "Stays optimistic after experiencing a setback." },
+        { mn: "Маш олон төрлийн зүйлсийг сонирхдог сониуч хүн.", en: "Is curious about many different things." },
+        { mn: "Юманд догдолж, баясах нь ховор хүн.", en: "Rarely feels excited or eager." },
+        { mn: "Бусдаас алдаа дутагдал хайх хандлагатай хүн.", en: "Tends to find fault with others." },
+        { mn: "Найдвартай, тууштай хүн.", en: "Is dependable, steady." },
+        { mn: "Сэтгэл санаа нь амархан хувирдаг хүн.", en: "Is moody, has up and down mood swings." },
+        { mn: "Юмыг хийх ухаалаг, бүтээлч арга замыг олдог хүн.", en: "Is inventive, finds clever ways to do things." },
+        { mn: "Дуугүй талдаа, даруухан хүн.", en: "Tends to be quiet." },
+        { mn: "Бусдыг төдийлөн өрөвдөж, ойлгодоггүй хүн.", en: "Feels little sympathy for others." },
+        { mn: "Аливааг системтэй, эмх цэгцтэй байлгах дуртай хүн.", en: "Is systematic, likes to keep things in order." },
+        { mn: "Биеэ барьсан, түгшүүртэй байх талтай хүн.", en: "Can be tense." },
+        { mn: "Урлаг, хөгжим, утга зохиолд маш их татагддаг хүн.", en: "Is fascinated by art, music, or literature." },
+        { mn: "Давамгайлах дуртай, удирдагч шиг ажилладаг хүн.", en: "Is dominant, acts as a leader." },
+        { mn: "Бусадтай маргаан эхлүүлэх хандлагатай хүн.", en: "Starts arguments with others." },
+        { mn: "Ажлыг эхлүүлэхэд хүндрэлтэй байдаг хүн.", en: "Has difficulty getting started on tasks." },
+        { mn: "Өөртөө итгэлтэй, өөрийнхөөрөө байхдаа тухтай байдаг хүн.", en: "Feels secure, comfortable with self." },
+        { mn: "Оюун ухааны болон гүн ухааны мэтгэлцээнээс зайлсхийдэг хүн.", en: "Avoids intellectual, philosophical discussions." },
+        { mn: "Бусад хүмүүсээс бага идэвхтэй хүн.", en: "Is less active than other people." },
+        { mn: "Уужуу, уучлагч зантай хүн.", en: "Has a forgiving nature." },
+        { mn: "Жаахан хайнга байх талтай хүн.", en: "Can be somewhat careless." },
+        { mn: "Сэтгэл хөдлөл тогтвортой, амархан хямардаггүй хүн.", en: "Is emotionally stable, not easily upset." },
+        { mn: "Бүтээлч сэтгэлгээ багатай хүн.", en: "Has little creativity." },
+        { mn: "Заримдаа ичимхий, дотогшоо хүн.", en: "Is sometimes shy, introverted." },
+        { mn: "Бусдад тусархуу, аминч бус хүн.", en: "Is helpful and unselfish with others." },
+        { mn: "Юмсаа цэвэрхэн, нямбай байлгадаг хүн.", en: "Keeps things neat and tidy." },
+        { mn: "Юманд маш их санаа зовдог хүн.", en: "Worries a lot." },
+        { mn: "Урлаг болон гоо сайхныг дээдэлдэг хүн.", en: "Values art and beauty." },
+        { mn: "Бусдад нөлөөлөхөд хэцүү гэж боддог хүн.", en: "Finds it hard to influence people." },
+        { mn: "Заримдаа бусадтай бүдүүлэг харьцдаг хүн.", en: "Is sometimes rude to others." },
+        { mn: "Үр бүтээлтэй, ажлыг цагт нь амжуулдаг хүн.", en: "Is efficient, gets things done." },
+        { mn: "Олонтаа гунигладаг хүн.", en: "Often feels sad." },
+        { mn: "Нарийн төвөгтэй, гүн гүнзгий сэтгэдэг хүн.", en: "Is complex, a deep thinker." },
+        { mn: "Эрч хүчээр дүүрэн хүн.", en: "Is full of energy." },
+        { mn: "Бусдын санаа зорилгод эргэлзэж, сэрддэг хүн.", en: "Is suspicious of others’ intentions." },
+        { mn: "Найдвартай, үргэлж итгэж болох хүн.", en: "Is reliable, can always be counted on." },
+        { mn: "Сэтгэл хөдлөлөө хянаж чаддаг хүн.", en: "Keeps their emotions under control." },
+        { mn: "Юмыг төсөөлөн бодохдоо тааруу хүн.", en: "Has difficulty imagining things." },
+        { mn: "Яриасаг хүн.", en: "Is talkative." },
+        { mn: "Хүйтэн хөндий, хайхрамжгүй байх талтай хүн.", en: "Can be cold and uncaring." },
+        { mn: "Эмх замбараагүй байдал үүсгээд, цэвэрлэдэггүй хүн.", en: "Leaves a mess, doesn’t clean up." },
+        { mn: "Айдас, түгшүүрийг ховор мэдэрдэг хүн.", en: "Rarely feels anxious or afraid." },
+        { mn: "Шүлэг болон жүжгийг уйтгартай гэж үздэг хүн.", en: "Thinks poetry and plays are boring." },
+        { mn: "Бусдаар удирдуулахыг илүүд үздэг хүн.", en: "Prefers to have others take charge." },
+        { mn: "Бусадтай эелдэг, боловсон харьцдаг хүн.", en: "Is polite, courteous to others." },
+        { mn: "Тууштай, ажлыг дуустал нь хийдэг хүн.", en: "Is persistent, works until the task is finished." },
+        { mn: "Сэтгэлээр унах, гуниглах хандлагатай хүн.", en: "Tends to feel depressed, blue." },
+        { mn: "Хийсвэр санааг төдийлөн сонирходоггүй хүн.", en: "Has little interest in abstract ideas." },
+        { mn: "Маш их урам зориг, идэвхтэй байдлыг харуулдаг хүн.", en: "Shows a lot of enthusiasm." },
+        { mn: "Хүмүүсийг үргэлж сайнаар төсөөлдөг хүн.", en: "Assumes the best about people." },
+        { mn: "Заримдаа хариуцлагагүй авирладаг хүн.", en: "Sometimes behaves irresponsibly." },
+        { mn: "Түргэн зантай, амархан сэтгэл хөдлөлд автдаг хүн.", en: "Is temperamental, gets emotional easily." },
+        { mn: "Шинийг сэдэгч, өвөрмөц санаа гаргадаг хүн.", en: "Is original, comes up with new ideas." }
+    ];
+
+    const quizBody = document.getElementById('quizBody');
+
+    questions.forEach((q, i) => {
+        let row = `<tr id="row-${i}">
+            <td class="statement-text">
+                <span class="mn-text">${i+1}. ${q.mn}</span>
+                <span class="en-text">${q.en}</span>
+            </td>
+            <td><input type="radio" name="q${i}" value="1"></td>
+            <td><input type="radio" name="q${i}" value="2"></td>
+            <td><input type="radio" name="q${i}" value="3"></td>
+            <td><input type="radio" name="q${i}" value="4"></td>
+            <td><input type="radio" name="q${i}" value="5"></td>
+        </tr>`;
+        quizBody.innerHTML += row;
+    });
+
+    function generateReport() {
+        let results = "BFI-2 Results Data:\n";
+        let allAnswered = true;
+        let firstMissingRow = null;
+
+        // Өмнөх алдааны тэмдэглэгээг арилгах
+        for(let i=0; i<60; i++) {
+            document.getElementById(`row-${i}`).classList.remove('error-row');
+        }
+        
+        for(let i=0; i<60; i++) {
+            let selected = document.querySelector(`input[name="q${i}"]:checked`);
+            if(selected) {
+                results += `Q${i+1}:${selected.value} `;
+                if((i+1) % 10 === 0) results += "\n";
+            } else {
+                allAnswered = false;
+                // Дутуу асуултын мөрийг улаанаар тодруулах
+                document.getElementById(`row-${i}`).classList.add('error-row');
+                if (firstMissingRow === null) firstMissingRow = document.getElementById(`row-${i}`);
+            }
+        }
+
+        if(!allAnswered) {
+            alert("Та бүх асуултад хариулна уу! / Please answer all questions.");
+            // Хамгийн эхний дутуу асуулт руу дэлгэцийг гүйлгэх
+            firstMissingRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
+
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('outputArea').value = results;
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

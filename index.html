@@ -9,10 +9,19 @@
 
         :root {
             --bg-color: #f3f6f8;
-            --primary: #6366f1; /* Үндсэн чернилэн ягаан */
+            --primary: #6366f1; 
+            --primary-hover: #4f46e5;
             --text-main: #1e293b;
             --text-muted: #64748b;
             --card-bg: #ffffff;
+            --success: #10b981;
+            
+            /* Traits Colors */
+            --c-ext: #f59e0b;
+            --c-agr: #10b981;
+            --c-con: #3b82f6;
+            --c-neu: #ef4444;
+            --c-ope: #8b5cf6;
         }
 
         body { font-family: 'Inter', sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px; background-color: var(--bg-color); color: var(--text-main); }
@@ -21,121 +30,191 @@
         h1 { font-size: 32px; font-weight: 800; color: var(--text-main); margin-bottom: 10px; letter-spacing: -0.5px; }
         .instruction { background: linear-gradient(135deg, #e0e7ff 0%, #ede9fe 100%); padding: 20px; border-radius: 16px; color: #3730a3; font-size: 15px; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.1); }
         
-        /* Progress Bar - Sticky */
         .progress-wrapper { position: sticky; top: 0; background: var(--bg-color); padding: 15px 0; z-index: 100; margin-bottom: 20px; }
         .progress-container { width: 100%; background-color: #e2e8f0; border-radius: 10px; height: 10px; margin-bottom: 8px; overflow: hidden; }
         .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #6366f1, #a855f7); border-radius: 10px; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         #encourageMsg { font-size: 14px; color: var(--primary); font-weight: 700; text-align: center; }
 
-        /* User Info Inputs */
         .user-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; background: var(--card-bg); padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .info-group { display: flex; flex-direction: column; }
         label { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
         input[type="number"], input[type="text"], select { padding: 12px; border-radius: 8px; border: 2px solid #e2e8f0; font-size: 15px; font-family: 'Inter', sans-serif; transition: 0.3s; background: #f8fafc; outline: none; }
         input:focus, select:focus { border-color: var(--primary); background: #fff; }
 
-        /* Table Design - Fixed Sticky Header */
         .table-wrapper { background: var(--card-bg); border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
         table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 700px; }
-        
-        /* Sticky Header - Top-ийг progress-wrapper-ийн өндөртэй тааруулав */
         th { background: var(--primary); color: white; padding: 15px 10px; font-size: 13px; font-weight: 600; position: sticky; top: 60px; z-index: 90; text-align: center; line-height: 1.3; }
         th:first-child { text-align: left; padding-left: 20px; border-top-left-radius: 16px; }
         th:last-child { border-top-right-radius: 16px; }
-        
         td { border-bottom: 1px solid #f1f5f9; padding: 15px 10px; text-align: center; vertical-align: middle; transition: 0.2s; }
         .statement-text { text-align: left; width: 45%; padding-left: 20px; }
         .mn-text { display: block; font-size: 15px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
         .en-text { display: block; font-size: 12px; color: var(--text-muted); font-style: italic; }
-        
         tr:hover:not(.halfway-row) { background-color: #f8fafc; }
         .error-row { background-color: #fef2f2 !important; }
-        
-        /* Radio Buttons */
         input[type="radio"] { transform: scale(1.4); cursor: pointer; accent-color: var(--primary); margin: 0; }
 
-        /* 50% Halfway Row - Modern Transparent Minimalist Design */
-        .halfway-row td {
-            background: rgba(99, 102, 241, 0.04); /* Маш бүдэг тунгалаг ягаан */
-            backdrop-filter: blur(5px);
-            padding: 50px 20px !important;
-            border-top: 1px solid rgba(99, 102, 241, 0.15);
-            border-bottom: 1px solid rgba(99, 102, 241, 0.15);
-        }
+        .halfway-row td { background: rgba(99, 102, 241, 0.04); backdrop-filter: blur(5px); padding: 50px 20px !important; border-top: 1px solid rgba(99, 102, 241, 0.15); border-bottom: 1px solid rgba(99, 102, 241, 0.15); }
         .halfway-box { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
         .halfway-title { font-size: 20px; font-weight: 600; color: var(--primary); margin: 0; letter-spacing: -0.3px; }
         .halfway-subtitle { font-size: 14px; font-weight: 400; color: var(--text-muted); max-width: 450px; margin: 0; line-height: 1.5; text-align: center; }
 
-        /* Submit Button */
         .btn-container { text-align: center; margin-top: 40px; margin-bottom: 40px; }
         .submit-btn { background: var(--text-main); color: white; border: none; padding: 18px 60px; font-size: 18px; font-weight: 700; cursor: pointer; border-radius: 50px; transition: all 0.3s; box-shadow: 0 10px 25px rgba(30, 41, 59, 0.2); font-family: 'Inter', sans-serif; }
         .submit-btn:hover { background: var(--primary); transform: translateY(-3px); box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3); }
 
-        #results { display: none; margin-top: 30px; padding: 30px; background: #fff; border: 2px dashed var(--primary); border-radius: 16px; }
-        .copy-area { background: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; width: 100%; height: 200px; font-family: monospace; font-size: 14px; margin-top: 15px; border-radius: 10px; resize: none; box-sizing: border-box; }
+        #resultsDashboard { display: none; background: var(--card-bg); padding: 40px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); margin-top: 20px; animation: fadeIn 0.8s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .result-header { text-align: center; margin-bottom: 40px; }
+        .result-header h2 { font-size: 28px; color: var(--text-main); margin-bottom: 10px; }
+        .result-header p { color: var(--text-muted); }
+
+        .trait-card { margin-bottom: 30px; }
+        .trait-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px; }
+        .trait-name { font-size: 18px; font-weight: 700; color: var(--text-main); margin: 0; }
+        .trait-score { font-size: 24px; font-weight: 800; margin: 0; }
+        .trait-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; }
+        
+        .result-bar-bg { width: 100%; height: 16px; background-color: #f1f5f9; border-radius: 20px; overflow: hidden; }
+        .result-bar-fill { height: 100%; border-radius: 20px; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1); width: 0%; }
+
+        .color-ext { color: var(--c-ext); } .bg-ext { background-color: var(--c-ext); }
+        .color-agr { color: var(--c-agr); } .bg-agr { background-color: var(--c-agr); }
+        .color-con { color: var(--c-con); } .bg-con { background-color: var(--c-con); }
+        .color-neu { color: var(--c-neu); } .bg-neu { background-color: var(--c-neu); }
+        .color-ope { color: var(--c-ope); } .bg-ope { background-color: var(--c-ope); }
+        
+        .send-results-section { background: #f8fafc; border: 1px solid #e2e8f0; padding: 30px; border-radius: 16px; margin-top: 50px; text-align: center; }
+        .send-results-section h3 { color: var(--primary); margin-top: 0; font-size: 22px; margin-bottom: 10px; }
+        .send-results-section p { color: var(--text-muted); font-size: 15px; margin-bottom: 20px; }
+        #finalDataToCopy { width: 100%; height: 250px; padding: 15px; border-radius: 12px; border: 2px solid #cbd5e1; font-family: monospace; font-size: 14px; margin-bottom: 20px; resize: vertical; background: #fff; box-sizing: border-box; color: var(--text-main); line-height: 1.6; outline: none; }
+        #finalDataToCopy:focus { border-color: var(--primary); }
+        .copy-btn { background: var(--primary); color: white; border: none; padding: 15px 40px; font-size: 16px; font-weight: 600; border-radius: 50px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2); }
+        .copy-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+        #testSection { transition: 0.3s; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header-section">
-        <h1>Big Five Personality Test</h1>
-        <div class="instruction">
-            <strong>BFI-2 Албан ёсны хувилбар.</strong> Энэхүү тест нь таны зан араншин, хандлагыг тодорхойлох шинжлэх ухааны хэрэгсэл юм. Асуултуудад хэт удаан бодолгүй, хамгийн түрүүнд буусан бодит байдлаараа хариулаарай.
+    <div id="testSection">
+        <div class="header-section">
+            <h1>Big Five Personality Test</h1>
+            <div class="instruction">
+                <strong>BFI-2 Албан ёсны хувилбар.</strong> ШУ-аар батлагдсан, дэлхийд хүлээн зөвшөөрөгдсөн <br> сэтгэл судлалын "алтан" тест юм.<br>
+                Энэхүү тест нь олон арван жилийн турш хэдэн сая хүн дээр хийгдсэн судалгаанд суурилсан байдаг бөгөөд <br>
+                таны ажил мэргэжлийн амжилт, харилцааны онцлог, стресс даах чадвар зэрэг таны сэтгэл хөдлөл, зан араншин, хандлагыг урьдчилан таамаглахад тусалдаг хамгийн хүчирхэг хэрэгсэл юм.
+            </div>
+        </div>
+
+        <div class="progress-wrapper">
+            <div id="encourageMsg">Асуултуудад хэт удаан бодолгүй, хамгийн түрүүнд буусан бодит байдлаараа хариулаарай</div>
+            <div class="progress-container">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="info-group"><label>Нас</label><input type="number" id="userAge" placeholder="Жишээ нь: 25"></div>
+            <div class="info-group"><label>Хүйс</label><select id="userGender"><option value="">Сонгоно уу</option><option value="Male">Эрэгтэй</option><option value="Female">Эмэгтэй</option></select></div>
+            <div class="info-group"><label>Мэргэжил</label><input type="text" id="userJob" placeholder="Инженер г.м"></div>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Би бол... (Statement)</th>
+                        <th>Огт<br>үгүй</th>
+                        <th>Бага зэрэг<br>үгүй</th>
+                        <th>Төвийг<br>сахисан</th>
+                        <th>Бага зэрэг<br>тийм</th>
+                        <th>Бүрэн<br>тийм</th>
+                    </tr>
+                </thead>
+                <tbody id="quizBody"></tbody>
+            </table>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" onclick="calculateResults()">Үр дүнг харах ✨</button>
         </div>
     </div>
 
-    <div class="progress-wrapper">
-        <div id="encourageMsg">Асуултаа бөглөж эхэлнэ үү 😊</div>
-        <div class="progress-container">
-            <div id="progressBar" class="progress-bar"></div>
+    <div id="resultsDashboard">
+        <div class="result-header">
+            <h2>Таны сэтгэл зүйн профайл</h2>
+            <p>Таны хариултад үндэслэн Big Five алгоритмаар бодогдсон үр дүн</p>
         </div>
-    </div>
 
-    <div class="user-info">
-        <div class="info-group">
-            <label>Нас</label>
-            <input type="number" id="userAge" placeholder="Жишээ нь: 25">
+        <div class="trait-card">
+            <div class="trait-header">
+                <div>
+                    <h3 class="trait-name">Экстраверт (Extraversion)</h3>
+                    <p class="trait-desc">Нийтэч байдал, эрч хүч, бусдыг манлайлах хандлага.</p>
+                </div>
+                <div class="trait-score color-ext" id="score-ext">0%</div>
+            </div>
+            <div class="result-bar-bg"><div class="result-bar-fill bg-ext" id="bar-ext"></div></div>
         </div>
-        <div class="info-group">
-            <label>Хүйс</label>
-            <select id="userGender">
-                <option value="">Сонгоно уу</option>
-                <option value="Male">Эрэгтэй</option>
-                <option value="Female">Эмэгтэй</option>
-                <option value="Other">Бусад</option>
-            </select>
+
+        <div class="trait-card">
+            <div class="trait-header">
+                <div>
+                    <h3 class="trait-name">Зөвшилцөхүйц (Agreeableness)</h3>
+                    <p class="trait-desc">Бусдыг ойлгох, тусархуу, эелдэг ба итгэлцэх хандлага.</p>
+                </div>
+                <div class="trait-score color-agr" id="score-agr">0%</div>
+            </div>
+            <div class="result-bar-bg"><div class="result-bar-fill bg-agr" id="bar-agr"></div></div>
         </div>
-        <div class="info-group">
-            <label>Мэргэжил</label>
-            <input type="text" id="userJob" placeholder="Инженер, Оюутан г.м">
+
+        <div class="trait-card">
+            <div class="trait-header">
+                <div>
+                    <h3 class="trait-name">Ухамсартай байдал (Conscientiousness)</h3>
+                    <p class="trait-desc">Зохион байгуулалт, хариуцлага, зорилгодоо тууштай байх чадвар.</p>
+                </div>
+                <div class="trait-score color-con" id="score-con">0%</div>
+            </div>
+            <div class="result-bar-bg"><div class="result-bar-fill bg-con" id="bar-con"></div></div>
         </div>
-    </div>
 
-    <div class="table-wrapper">
-        <table>
-            <thead>
-                <tr>
-                    <th>Би бол... (Statement)</th>
-                    <th>Огт<br>үгүй</th>
-                    <th>Бага зэрэг<br>үгүй</th>
-                    <th>Төвийг<br>сахисан</th>
-                    <th>Бага зэрэг<br>тийм</th>
-                    <th>Бүрэн<br>тийм</th>
-                </tr>
-            </thead>
-            <tbody id="quizBody"></tbody>
-        </table>
-    </div>
+        <div class="trait-card">
+            <div class="trait-header">
+                <div>
+                    <h3 class="trait-name">Сөрөг сэтгэл хөдлөл (Neuroticism)</h3>
+                    <p class="trait-desc">Стресс мэдрэх, түгших болон сэтгэл санааны тогтворгүй байдал.</p>
+                </div>
+                <div class="trait-score color-neu" id="score-neu">0%</div>
+            </div>
+            <div class="result-bar-bg"><div class="result-bar-fill bg-neu" id="bar-neu"></div></div>
+        </div>
 
-    <div class="btn-container">
-        <button class="submit-btn" onclick="generateReport()">Үр дүнг харах ✨</button>
-    </div>
+        <div class="trait-card">
+            <div class="trait-header">
+                <div>
+                    <h3 class="trait-name">Нээлттэй байдал (Open-Mindedness)</h3>
+                    <p class="trait-desc">Шинийг эрэлхийлэх, уран сэтгэмж, танин мэдэхүйн сониуч зан.</p>
+                </div>
+                <div class="trait-score color-ope" id="score-ope">0%</div>
+            </div>
+            <div class="result-bar-bg"><div class="result-bar-fill bg-ope" id="bar-ope"></div></div>
+        </div>
 
-    <div id="results">
-        <h3 style="margin-top:0;">Үр дүн бэлэн боллоо:</h3>
-        <p style="color:var(--text-muted); font-size:14px;">Та доорх текстийг бүхэлд нь хуулж аваад бидэн рүү илгээнэ үү.</p>
-        <textarea id="outputArea" class="copy-area" readonly></textarea>
+        <div class="send-results-section">
+            <h3>Дэлгэрэнгүй тайлбар авах</h3>
+            <p>Та үр дүнгийн талаарх илүү дэлгэрэнгүй, мэргэжлийн тайлбарыг авахыг хүсвэл доорх тестийн хариуг хуулж аваад бидэнд илгээнэ үү.</p>
+            <textarea id="finalDataToCopy" readonly></textarea>
+            <br>
+            <button class="copy-btn" onclick="copyResults()">Хуулж авах 📋</button>
+        </div>
+        
+        <div style="text-align:center; margin-top:40px;">
+            <button class="submit-btn" style="background:#64748b;" onclick="location.reload()">Дахин эхлэх</button>
+        </div>
     </div>
 </div>
 
@@ -210,8 +289,7 @@
             <tr class="halfway-row">
                 <td colspan="6">
                     <div class="halfway-box">
-                        <h3 class="halfway-title">50% амжилттай бөглөлөө</h3>
-                        <p class="halfway-subtitle">Нүдээ хэсэг амраагаад (1-2 секунд), гүнзгий амьсгаа аваад цааш үргэлжлүүлээрэй.</p>
+                        <h3 class="halfway-title">Та нийт асуултынхаа 50%-ийг амжилттай бөглөлөө ^^</h3>
                     </div>
                 </td>
             </tr>`;
@@ -238,49 +316,51 @@
         document.getElementById('progressBar').style.width = percentage + "%";
         
         const msg = document.getElementById('encourageMsg');
-        
-        if (answeredCount < 30) {
-            msg.innerText = `Амжилт хүсье! (${answeredCount}/60)`;
-        } else if (answeredCount === 30) {
-            msg.innerText = "🎉 Баяр хүргэе! Та нийт асуултынхаа 50%-ийг бөглөлөө.";
-        } else if (answeredCount > 30 && answeredCount < 50) {
-            msg.innerText = "🌟 Сайн байна! Талдаа орчихлоо, үргэлжлүүлээд л байгаарай!";
-        } else if (answeredCount >= 50 && answeredCount < 60) {
-            msg.innerText = "✨ Бараг дуусчихлаа! Сүүлийн хэдхэн асуулт...";
-        } else if (answeredCount === 60) {
-            msg.innerText = "✅ Дууслаа! Одоо 'Үр дүнг харах' товчийг дарна уу.";
-        }
+        if (answeredCount < 30) msg.innerText = `Амжилт хүсье! (${answeredCount}/60)`;
+        else if (answeredCount === 30) msg.innerText = "🎉 Баяр хүргэе! Та нийт асуултынхаа 50%-ийг бөглөлөө.";
+        else if (answeredCount > 30 && answeredCount < 50) msg.innerText = "🌟 Сайн байна! Талдаа орчихлоо, үргэлжлүүлээд л байгаарай!";
+        else if (answeredCount >= 50 && answeredCount < 60) msg.innerText = "✨ Бараг дуусчихлаа! Сүүлийн хэдхэн асуулт...";
+        else if (answeredCount === 60) msg.innerText = "✅ Дууслаа! Одоо 'Үр дүнг харах' товчийг дарна уу.";
     }
 
-    function generateReport() {
+    const scoringKey = {
+        ext: { pos: [0, 5, 20, 40, 45, 55], rev: [10, 15, 25, 30, 35, 50] },
+        agr: { pos: [1, 6, 26, 31, 51, 56], rev: [11, 16, 21, 36, 41, 46] },
+        con: { pos: [12, 17, 32, 37, 42, 52], rev: [2, 7, 22, 27, 47, 57] },
+        neu: { pos: [13, 18, 33, 38, 53, 58], rev: [3, 8, 23, 28, 43, 48] },
+        ope: { pos: [9, 14, 19, 34, 39, 59], rev: [4, 24, 29, 44, 49, 54] }
+    };
+
+    function calcDomainScore(trait) {
+        let total = 0;
+        scoringKey[trait].pos.forEach(idx => {
+            const val = parseInt(document.querySelector(`input[name="q${idx}"]:checked`).value);
+            total += val;
+        });
+        scoringKey[trait].rev.forEach(idx => {
+            const val = parseInt(document.querySelector(`input[name="q${idx}"]:checked`).value);
+            total += (6 - val); 
+        });
+        let percentage = ((total - 12) / 48) * 100;
+        return Math.round(percentage);
+    }
+
+    function calculateResults() {
         const age = document.getElementById('userAge').value;
         const gender = document.getElementById('userGender').value;
         const job = document.getElementById('userJob').value;
 
-        if(!age || !gender || !job) {
-            alert("Нас, Хүйс, Мэргэжил гэсэн мэдээллийг бүрэн оруулна уу!");
-            return;
-        }
-
-        let results = `PERSONAL INFO:\nAge: ${age}\nGender: ${gender}\nOccupation: ${job}\n\n`;
-        results += `BFI-2 RESULTS DATA:\n`;
+        if(!age || !gender || !job) { alert("Нас, Хүйс, Мэргэжил гэсэн мэдээллийг бүрэн оруулна уу!"); return; }
         
         let allAnswered = true;
         let firstMissingRow = null;
-
-        for(let i=0; i<60; i++) {
-            document.getElementById(`row-${i}`).classList.remove('error-row');
-        }
+        for(let i=0; i<60; i++) { document.getElementById(`row-${i}`).classList.remove('error-row'); }
         
         for(let i=0; i<60; i++) {
-            let selected = document.querySelector(`input[name="q${i}"]:checked`);
-            if(selected) {
-                results += `Q${i+1}:${selected.value} `;
-                if((i+1) % 10 === 0) results += "\n";
-            } else {
+            if(!document.querySelector(`input[name="q${i}"]:checked`)) {
                 allAnswered = false;
                 document.getElementById(`row-${i}`).classList.add('error-row');
-                if (firstMissingRow === null) firstMissingRow = document.getElementById(`row-${i}`);
+                if (!firstMissingRow) firstMissingRow = document.getElementById(`row-${i}`);
             }
         }
 
@@ -290,9 +370,71 @@
             return;
         }
 
-        document.getElementById('results').style.display = 'block';
-        document.getElementById('outputArea').value = results;
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        document.getElementById('testSection').style.display = 'none';
+        
+        const extScore = calcDomainScore('ext');
+        const agrScore = calcDomainScore('agr');
+        const conScore = calcDomainScore('con');
+        const neuScore = calcDomainScore('neu');
+        const opeScore = calcDomainScore('ope');
+
+        document.getElementById('resultsDashboard').style.display = 'block';
+        
+        document.getElementById('score-ext').innerText = extScore + '%';
+        document.getElementById('score-agr').innerText = agrScore + '%';
+        document.getElementById('score-con').innerText = conScore + '%';
+        document.getElementById('score-neu').innerText = neuScore + '%';
+        document.getElementById('score-ope').innerText = opeScore + '%';
+
+        setTimeout(() => {
+            document.getElementById('bar-ext').style.width = extScore + '%';
+            document.getElementById('bar-agr').style.width = agrScore + '%';
+            document.getElementById('bar-con').style.width = conScore + '%';
+            document.getElementById('bar-neu').style.width = neuScore + '%';
+            document.getElementById('bar-ope').style.width = opeScore + '%';
+        }, 100);
+
+        // 60 асуултын Raw Data-г цуглуулах
+        let rawAnswers = "";
+        for(let i=0; i<60; i++) {
+            let val = document.querySelector(`input[name="q${i}"]:checked`).value;
+            rawAnswers += `Q${i+1}:${val} `;
+            if((i+1) % 10 === 0) rawAnswers += "\n"; // 10 асуулт тутамд шинэ мөрөнд шилжүүлэх
+        }
+
+        const resultString = `--- БИЕ ХҮНИЙ ЗАН ЧАНАР (BFI-2) ---
+Нас: ${age}
+Хүйс: ${gender}
+Мэргэжил: ${job}
+
+[ҮР ДҮНГИЙН ХУВЬ]
+Экстраверт (E): ${extScore}%
+Зөвшилцөхүйц (A): ${agrScore}%
+Ухамсартай байдал (C): ${conScore}%
+Сөрөг сэтгэл хөдлөл (N): ${neuScore}%
+Нээлттэй байдал (O): ${opeScore}%
+
+[60 АСУУЛТЫН RAW DATA]
+${rawAnswers}-----------------------------------`;
+        
+        document.getElementById('finalDataToCopy').value = resultString;
+        window.scrollTo(0,0);
+    }
+
+    function copyResults() {
+        const copyText = document.getElementById("finalDataToCopy");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); 
+        navigator.clipboard.writeText(copyText.value);
+        
+        const btn = document.querySelector('.copy-btn');
+        btn.innerText = "Хуулагдлаа! ✅";
+        btn.style.background = "var(--success)";
+        
+        setTimeout(() => {
+            btn.innerText = "Хуулж авах 📋";
+            btn.style.background = "var(--primary)";
+        }, 3000);
     }
 </script>
 

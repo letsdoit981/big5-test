@@ -7,30 +7,30 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
+        /* Вэб хуудсыг бүхэлд нь Select хийхийг хориглох хамгаалалт */
+        body { 
+            font-family: 'Inter', sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px; 
+            background-color: #f3f6f8; color: #1e293b;
+            user-select: none; /* Text selection хаах */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
         :root {
-            --bg-color: #f3f6f8;
             --primary: #6366f1; 
             --primary-hover: #4f46e5;
             --text-main: #1e293b;
             --text-muted: #64748b;
             --card-bg: #ffffff;
             --success: #10b981;
-            
-            /* Traits Colors */
-            --c-ext: #f59e0b;
-            --c-agr: #10b981;
-            --c-con: #3b82f6;
-            --c-neu: #ef4444;
-            --c-ope: #8b5cf6;
         }
 
-        body { font-family: 'Inter', sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px; background-color: var(--bg-color); color: var(--text-main); }
-        
         .header-section { text-align: center; margin-bottom: 30px; }
         h1 { font-size: 32px; font-weight: 800; color: var(--text-main); margin-bottom: 10px; letter-spacing: -0.5px; }
         .instruction { background: linear-gradient(135deg, #e0e7ff 0%, #ede9fe 100%); padding: 20px; border-radius: 16px; color: #3730a3; font-size: 15px; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.1); }
         
-        .progress-wrapper { position: sticky; top: 0; background: var(--bg-color); padding: 15px 0; z-index: 100; margin-bottom: 20px; }
+        .progress-wrapper { position: sticky; top: 0; background: #f3f6f8; padding: 15px 0; z-index: 100; margin-bottom: 20px; }
         .progress-container { width: 100%; background-color: #e2e8f0; border-radius: 10px; height: 10px; margin-bottom: 8px; overflow: hidden; }
         .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #6366f1, #a855f7); border-radius: 10px; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         #encourageMsg { font-size: 14px; color: var(--primary); font-weight: 700; text-align: center; }
@@ -57,39 +57,30 @@
         .halfway-row td { background: rgba(99, 102, 241, 0.04); backdrop-filter: blur(5px); padding: 50px 20px !important; border-top: 1px solid rgba(99, 102, 241, 0.15); border-bottom: 1px solid rgba(99, 102, 241, 0.15); }
         .halfway-box { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
         .halfway-title { font-size: 20px; font-weight: 600; color: var(--primary); margin: 0; letter-spacing: -0.3px; }
-        .halfway-subtitle { font-size: 14px; font-weight: 400; color: var(--text-muted); max-width: 450px; margin: 0; line-height: 1.5; text-align: center; }
 
         .btn-container { text-align: center; margin-top: 40px; margin-bottom: 40px; }
         .submit-btn { background: var(--text-main); color: white; border: none; padding: 18px 60px; font-size: 18px; font-weight: 700; cursor: pointer; border-radius: 50px; transition: all 0.3s; box-shadow: 0 10px 25px rgba(30, 41, 59, 0.2); font-family: 'Inter', sans-serif; }
         .submit-btn:hover { background: var(--primary); transform: translateY(-3px); box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3); }
 
-        #resultsDashboard { display: none; background: var(--card-bg); padding: 40px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); margin-top: 20px; animation: fadeIn 0.8s; }
+        #resultsDashboard { display: none; background: var(--card-bg); padding: 40px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); margin-top: 20px; animation: fadeIn 0.8s; text-align: center; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        .result-header { text-align: center; margin-bottom: 40px; }
         .result-header h2 { font-size: 28px; color: var(--text-main); margin-bottom: 10px; }
-        .result-header p { color: var(--text-muted); }
+        .result-header p { color: var(--text-muted); margin-bottom: 30px; font-size: 16px; }
 
-        .trait-card { margin-bottom: 30px; }
-        .trait-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px; }
-        .trait-name { font-size: 18px; font-weight: 700; color: var(--text-main); margin: 0; }
-        .trait-score { font-size: 24px; font-weight: 800; margin: 0; }
-        .trait-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; }
+        .success-icon { font-size: 60px; margin-bottom: 20px; }
         
-        .result-bar-bg { width: 100%; height: 16px; background-color: #f1f5f9; border-radius: 20px; overflow: hidden; }
-        .result-bar-fill { height: 100%; border-radius: 20px; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1); width: 0%; }
-
-        .color-ext { color: var(--c-ext); } .bg-ext { background-color: var(--c-ext); }
-        .color-agr { color: var(--c-agr); } .bg-agr { background-color: var(--c-agr); }
-        .color-con { color: var(--c-con); } .bg-con { background-color: var(--c-con); }
-        .color-neu { color: var(--c-neu); } .bg-neu { background-color: var(--c-neu); }
-        .color-ope { color: var(--c-ope); } .bg-ope { background-color: var(--c-ope); }
+        .send-results-section { background: #f8fafc; border: 1px solid #e2e8f0; padding: 30px; border-radius: 16px; margin-top: 20px; }
+        .send-results-section p { color: #1e293b; font-size: 15px; margin-bottom: 20px; font-weight: 500; }
         
-        .send-results-section { background: #f8fafc; border: 1px solid #e2e8f0; padding: 30px; border-radius: 16px; margin-top: 50px; text-align: center; }
-        .send-results-section h3 { color: var(--primary); margin-top: 0; font-size: 22px; margin-bottom: 10px; }
-        .send-results-section p { color: var(--text-muted); font-size: 15px; margin-bottom: 20px; }
-        #finalDataToCopy { width: 100%; height: 250px; padding: 15px; border-radius: 12px; border: 2px solid #cbd5e1; font-family: monospace; font-size: 14px; margin-bottom: 20px; resize: vertical; background: #fff; box-sizing: border-box; color: var(--text-main); line-height: 1.6; outline: none; }
-        #finalDataToCopy:focus { border-color: var(--primary); }
+        /* Зөвхөн хариу гардаг textarea дээр л select хийхийг зөвшөөрнө */
+        #finalDataToCopy { 
+            width: 100%; height: 100px; padding: 15px; border-radius: 12px; border: 2px dashed #cbd5e1; 
+            font-family: monospace; font-size: 15px; font-weight: bold; margin-bottom: 20px; resize: none; 
+            background: #fff; box-sizing: border-box; color: var(--primary); text-align: center; outline: none;
+            user-select: text !important; -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important;
+        }
+        
         .copy-btn { background: var(--primary); color: white; border: none; padding: 15px 40px; font-size: 16px; font-weight: 600; border-radius: 50px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2); }
         .copy-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
 
@@ -139,86 +130,46 @@
         </div>
 
         <div class="btn-container">
-            <button class="submit-btn" onclick="calculateResults()">Үр дүнг харах ✨</button>
+            <button class="submit-btn" onclick="calculateResults()">Үр дүнг илгээх</button>
         </div>
     </div>
 
     <div id="resultsDashboard">
         <div class="result-header">
-            <h2>Таны сэтгэл зүйн профайл</h2>
-            <p>Таны хариултад үндэслэн Big Five алгоритмаар бодогдсон үр дүн</p>
-        </div>
-
-        <div class="trait-card">
-            <div class="trait-header">
-                <div>
-                    <h3 class="trait-name">Экстраверт (Extraversion)</h3>
-                    <p class="trait-desc">Нийтэч байдал, эрч хүч, бусдыг манлайлах хандлага.</p>
-                </div>
-                <div class="trait-score color-ext" id="score-ext">0%</div>
-            </div>
-            <div class="result-bar-bg"><div class="result-bar-fill bg-ext" id="bar-ext"></div></div>
-        </div>
-
-        <div class="trait-card">
-            <div class="trait-header">
-                <div>
-                    <h3 class="trait-name">Зөвшилцөхүйц (Agreeableness)</h3>
-                    <p class="trait-desc">Бусдыг ойлгох, тусархуу, эелдэг ба итгэлцэх хандлага.</p>
-                </div>
-                <div class="trait-score color-agr" id="score-agr">0%</div>
-            </div>
-            <div class="result-bar-bg"><div class="result-bar-fill bg-agr" id="bar-agr"></div></div>
-        </div>
-
-        <div class="trait-card">
-            <div class="trait-header">
-                <div>
-                    <h3 class="trait-name">Ухамсартай байдал (Conscientiousness)</h3>
-                    <p class="trait-desc">Зохион байгуулалт, хариуцлага, зорилгодоо тууштай байх чадвар.</p>
-                </div>
-                <div class="trait-score color-con" id="score-con">0%</div>
-            </div>
-            <div class="result-bar-bg"><div class="result-bar-fill bg-con" id="bar-con"></div></div>
-        </div>
-
-        <div class="trait-card">
-            <div class="trait-header">
-                <div>
-                    <h3 class="trait-name">Сөрөг сэтгэл хөдлөл (Neuroticism)</h3>
-                    <p class="trait-desc">Стресс мэдрэх, түгших болон сэтгэл санааны тогтворгүй байдал.</p>
-                </div>
-                <div class="trait-score color-neu" id="score-neu">0%</div>
-            </div>
-            <div class="result-bar-bg"><div class="result-bar-fill bg-neu" id="bar-neu"></div></div>
-        </div>
-
-        <div class="trait-card">
-            <div class="trait-header">
-                <div>
-                    <h3 class="trait-name">Нээлттэй байдал (Open-Mindedness)</h3>
-                    <p class="trait-desc">Шинийг эрэлхийлэх, уран сэтгэмж, танин мэдэхүйн сониуч зан.</p>
-                </div>
-                <div class="trait-score color-ope" id="score-ope">0%</div>
-            </div>
-            <div class="result-bar-bg"><div class="result-bar-fill bg-ope" id="bar-ope"></div></div>
+            <div class="success-icon">🎉</div>
+            <h2>Тест амжилттай дууслаа</h2>
+            <p>Таны хариултууд системд амжилттай бодогдлоо.</p>
         </div>
 
         <div class="send-results-section">
-            <h3>Дэлгэрэнгүй тайлбар авах</h3>
-            <p>Та үр дүнгийн талаарх илүү дэлгэрэнгүй, мэргэжлийн тайлбарыг авахыг хүсвэл доорх тестийн хариуг хуулж аваад бидэнд илгээнэ үү.</p>
+            <p>Доорх кодыг хуулж аваад өөрийн зөвлөх рүү илгээж дэлгэрэнгүй тайлбараа авна уу.</p>
             <textarea id="finalDataToCopy" readonly></textarea>
             <br>
-            <button class="copy-btn" onclick="copyResults()">Хуулж авах 📋</button>
+            <button class="copy-btn" onclick="copyResults()">Кодыг хуулж авах 📋</button>
         </div>
         
         <div style="text-align:center; margin-top:40px;">
-            <button class="submit-btn" style="background:#64748b;" onclick="location.reload()">Дахин эхлэх</button>
+            <button class="submit-btn" style="background:#64748b; font-size:15px; padding:12px 30px;" onclick="location.reload()">Дахин эхлэх</button>
         </div>
     </div>
 </div>
 
 <script>
+    // Хулганы баруун товч (Context Menu) болон Ctrl+C (Copy) хаах JS
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('copy', event => {
+        // Хэрэв textarea дээр байгаа бол хуулахыг зөвшөөрнө
+        if (event.target.id !== 'finalDataToCopy') {
+            event.preventDefault();
+        }
+    });
+    // Ctrl+S, Ctrl+P гэх мэт хэвлэх, хадгалах үйлдлийг хаах
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && (e.key === 's' || e.key === 'p' || e.key === 'c')) {
+            if (e.target.id !== 'finalDataToCopy') e.preventDefault();
+        }
+    });
+
     const questions = [
         { mn: "Нээлттэй, олон нийттэй харилцах дуртай хүн.", en: "Is outgoing, sociable." },
         { mn: "Өрөвч, зөөлөн сэтгэлтэй хүн.", en: "Is compassionate, has a soft heart." },
@@ -320,37 +271,47 @@
         else if (answeredCount === 30) msg.innerText = "🎉 Баяр хүргэе! Та нийт асуултынхаа 50%-ийг бөглөлөө.";
         else if (answeredCount > 30 && answeredCount < 50) msg.innerText = "🌟 Сайн байна! Талдаа орчихлоо, үргэлжлүүлээд л байгаарай!";
         else if (answeredCount >= 50 && answeredCount < 60) msg.innerText = "✨ Бараг дуусчихлаа! Сүүлийн хэдхэн асуулт...";
-        else if (answeredCount === 60) msg.innerText = "✅ Дууслаа! Одоо 'Үр дүнг харах' товчийг дарна уу.";
+        else if (answeredCount === 60) msg.innerText = "✅ Дууслаа! Одоо илгээх товчийг дарна уу.";
     }
 
-    const scoringKey = {
-        ext: { pos: [0, 5, 20, 40, 45, 55], rev: [10, 15, 25, 30, 35, 50] },
-        agr: { pos: [1, 6, 26, 31, 51, 56], rev: [11, 16, 21, 36, 41, 46] },
-        con: { pos: [12, 17, 32, 37, 42, 52], rev: [2, 7, 22, 27, 47, 57] },
-        neu: { pos: [13, 18, 33, 38, 53, 58], rev: [3, 8, 23, 28, 43, 48] },
-        ope: { pos: [9, 14, 19, 34, 39, 59], rev: [4, 24, 29, 44, 49, 54] }
+    const facetKeys = {
+        e_sociability: { pos: [0, 45], rev: [15, 30] },
+        e_assertiveness: { pos: [5, 20], rev: [35, 50] },
+        e_energy: { pos: [40, 55], rev: [10, 25] },
+        a_compassion: { pos: [1, 31], rev: [16, 46] },
+        a_respectfulness: { pos: [6, 51], rev: [21, 36] },
+        a_trust: { pos: [26, 56], rev: [11, 41] },
+        c_organization: { pos: [17, 32], rev: [2, 47] },
+        c_productiveness: { pos: [37, 52], rev: [7, 22] },
+        c_responsibility: { pos: [12, 42], rev: [27, 57] },
+        n_anxiety: { pos: [18, 33], rev: [3, 48] },
+        n_depression: { pos: [38, 53], rev: [8, 23] },
+        n_volatility: { pos: [13, 58], rev: [28, 43] },
+        o_aesthetic: { pos: [19, 34], rev: [4, 49] },
+        o_intellectual: { pos: [9, 39], rev: [24, 54] },
+        o_creative: { pos: [14, 59], rev: [29, 44] }
     };
 
-    function calcDomainScore(trait) {
+    function calcRawScore(keys) {
         let total = 0;
-        scoringKey[trait].pos.forEach(idx => {
-            const val = parseInt(document.querySelector(`input[name="q${idx}"]:checked`).value);
-            total += val;
-        });
-        scoringKey[trait].rev.forEach(idx => {
-            const val = parseInt(document.querySelector(`input[name="q${idx}"]:checked`).value);
-            total += (6 - val); 
-        });
-        let percentage = ((total - 12) / 48) * 100;
-        return Math.round(percentage);
+        keys.pos.forEach(idx => { total += parseInt(document.querySelector(`input[name="q${idx}"]:checked`).value); });
+        keys.rev.forEach(idx => { total += (6 - parseInt(document.querySelector(`input[name="q${idx}"]:checked`).value)); });
+        return total;
+    }
+
+    function getPercent(score, isFacet) {
+        const min = isFacet ? 4 : 12;
+        const max = isFacet ? 20 : 60;
+        const range = max - min;
+        return Math.round(((score - min) / range) * 100);
     }
 
     function calculateResults() {
         const age = document.getElementById('userAge').value;
         const gender = document.getElementById('userGender').value;
-        const job = document.getElementById('userJob').value;
+        const job = document.getElementById('userJob').value || "NA";
 
-        if(!age || !gender || !job) { alert("Нас, Хүйс, Мэргэжил гэсэн мэдээллийг бүрэн оруулна уу!"); return; }
+        if(!age || !gender) { alert("Нас, Хүйсээ заавал оруулна уу!"); return; }
         
         let allAnswered = true;
         let firstMissingRow = null;
@@ -365,59 +326,48 @@
         }
 
         if(!allAnswered) {
-            alert("Та бүх асуултад хариулна уу! Улаанаар тэмдэглэгдсэн асуултууд орхигдсон байна.");
+            alert("Та бүх асуултад хариулна уу!");
             firstMissingRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
             return;
         }
 
         document.getElementById('testSection').style.display = 'none';
         
-        const extScore = calcDomainScore('ext');
-        const agrScore = calcDomainScore('agr');
-        const conScore = calcDomainScore('con');
-        const neuScore = calcDomainScore('neu');
-        const opeScore = calcDomainScore('ope');
+        const r_e_soc = calcRawScore(facetKeys.e_sociability);
+        const r_e_ass = calcRawScore(facetKeys.e_assertiveness);
+        const r_e_ene = calcRawScore(facetKeys.e_energy);
+        const r_a_com = calcRawScore(facetKeys.a_compassion);
+        const r_a_res = calcRawScore(facetKeys.a_respectfulness);
+        const r_a_tru = calcRawScore(facetKeys.a_trust);
+        const r_c_org = calcRawScore(facetKeys.c_organization);
+        const r_c_pro = calcRawScore(facetKeys.c_productiveness);
+        const r_c_res = calcRawScore(facetKeys.c_responsibility);
+        const r_n_anx = calcRawScore(facetKeys.n_anxiety);
+        const r_n_dep = calcRawScore(facetKeys.n_depression);
+        const r_n_vol = calcRawScore(facetKeys.n_volatility);
+        const r_o_aes = calcRawScore(facetKeys.o_aesthetic);
+        const r_o_int = calcRawScore(facetKeys.o_intellectual);
+        const r_o_cre = calcRawScore(facetKeys.o_creative);
+
+        const r_ext = r_e_soc + r_e_ass + r_e_ene;
+        const r_agr = r_a_com + r_a_res + r_a_tru;
+        const r_con = r_c_org + r_c_pro + r_c_res;
+        const r_neu = r_n_anx + r_n_dep + r_n_vol;
+        const r_ope = r_o_aes + r_o_int + r_o_cre;
+
+        const extScore = getPercent(r_ext, false);
+        const agrScore = getPercent(r_agr, false);
+        const conScore = getPercent(r_con, false);
+        const neuScore = getPercent(r_neu, false);
+        const opeScore = getPercent(r_ope, false);
 
         document.getElementById('resultsDashboard').style.display = 'block';
+
+        // Дарааллын нууцлал бүхий код (AI тааж чадахгүй)
+        // Format: BFX:[Age-Gender-Job]|E.soc.ass.ene|A.com.res.tru|C.org.pro.res|N.anx.dep.vol|O.aes.int.cre
+        const secretCode = `BFX:[${age}-${gender}-${job}]|${extScore}.${getPercent(r_e_soc, true)}.${getPercent(r_e_ass, true)}.${getPercent(r_e_ene, true)}|${agrScore}.${getPercent(r_a_com, true)}.${getPercent(r_a_res, true)}.${getPercent(r_a_tru, true)}|${conScore}.${getPercent(r_c_org, true)}.${getPercent(r_c_pro, true)}.${getPercent(r_c_res, true)}|${neuScore}.${getPercent(r_n_anx, true)}.${getPercent(r_n_dep, true)}.${getPercent(r_n_vol, true)}|${opeScore}.${getPercent(r_o_aes, true)}.${getPercent(r_o_int, true)}.${getPercent(r_o_cre, true)}`;
         
-        document.getElementById('score-ext').innerText = extScore + '%';
-        document.getElementById('score-agr').innerText = agrScore + '%';
-        document.getElementById('score-con').innerText = conScore + '%';
-        document.getElementById('score-neu').innerText = neuScore + '%';
-        document.getElementById('score-ope').innerText = opeScore + '%';
-
-        setTimeout(() => {
-            document.getElementById('bar-ext').style.width = extScore + '%';
-            document.getElementById('bar-agr').style.width = agrScore + '%';
-            document.getElementById('bar-con').style.width = conScore + '%';
-            document.getElementById('bar-neu').style.width = neuScore + '%';
-            document.getElementById('bar-ope').style.width = opeScore + '%';
-        }, 100);
-
-        // 60 асуултын Raw Data-г цуглуулах
-        let rawAnswers = "";
-        for(let i=0; i<60; i++) {
-            let val = document.querySelector(`input[name="q${i}"]:checked`).value;
-            rawAnswers += `Q${i+1}:${val} `;
-            if((i+1) % 10 === 0) rawAnswers += "\n"; // 10 асуулт тутамд шинэ мөрөнд шилжүүлэх
-        }
-
-        const resultString = `--- БИЕ ХҮНИЙ ЗАН ЧАНАР (BFI-2) ---
-Нас: ${age}
-Хүйс: ${gender}
-Мэргэжил: ${job}
-
-[ҮР ДҮНГИЙН ХУВЬ]
-Экстраверт (E): ${extScore}%
-Зөвшилцөхүйц (A): ${agrScore}%
-Ухамсартай байдал (C): ${conScore}%
-Сөрөг сэтгэл хөдлөл (N): ${neuScore}%
-Нээлттэй байдал (O): ${opeScore}%
-
-[60 АСУУЛТЫН RAW DATA]
-${rawAnswers}-----------------------------------`;
-        
-        document.getElementById('finalDataToCopy').value = resultString;
+        document.getElementById('finalDataToCopy').value = secretCode;
         window.scrollTo(0,0);
     }
 
@@ -432,7 +382,7 @@ ${rawAnswers}-----------------------------------`;
         btn.style.background = "var(--success)";
         
         setTimeout(() => {
-            btn.innerText = "Хуулж авах 📋";
+            btn.innerText = "Кодыг хуулж авах 📋";
             btn.style.background = "var(--primary)";
         }, 3000);
     }
